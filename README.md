@@ -51,7 +51,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_assignments"></a> [assignments](#input\_assignments) | List of role assignments | <pre>list(object({<br>    name                                   = optional(string)<br>    scope                                  = string<br>    role_definition_id                     = optional(string)<br>    role_definition_name                   = optional(string)<br>    principal_id                           = string<br>    condition                              = optional(string)<br>    condition_version                      = optional(string)<br>    delegated_managed_identity_resource_id = optional(string)<br>    description                            = optional(string)<br>    skip_service_principal_aad_check       = optional(bool)<br>  }))</pre> | `[]` | no |
+| <a name="input_roles"></a> [roles](#input\_roles) | The roles to be created and optionally assigned | <pre>list(object({<br>    create_role      = bool<br>    assign           = optional(bool)<br>    name             = string<br>    description      = string<br>    definition_scope = string<br>    principal_id     = string<br>    permissions = list(object({<br>      actions          = list(string)<br>      not_actions      = optional(list(string))<br>      data_actions     = optional(list(string))<br>      not_data_actions = optional(list(string))<br>    }))<br>    assignment_scope = string<br>    built_in_role_id = optional(string)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
