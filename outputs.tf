@@ -1,20 +1,31 @@
 output "role_assignments" {
-  description = "Map of created role assignments."
+  description = "Map of created custom role assignments."
   value = {
-    for key, assignment in azurerm_role_assignment.this :
+    for key, assignment in azurerm_role_assignment.custom :
     key => {
-      id                                     = assignment.id
-      principal_type                         = assignment.principal_type
-      name                                   = assignment.name
-      scope                                  = assignment.scope
-      role_definition_id                     = assignment.role_definition_id
-      role_definition_name                   = assignment.role_definition_name
-      principal_id                           = assignment.principal_id
-      condition                              = assignment.condition
-      condition_version                      = assignment.condition_version
-      delegated_managed_identity_resource_id = assignment.delegated_managed_identity_resource_id
-      description                            = assignment.description
-      skip_service_principal_aad_check       = assignment.skip_service_principal_aad_check
+      id                 = assignment.id
+      principal_id       = assignment.principal_id
+      role_definition_id = assignment.role_definition_id
+      scope              = assignment.scope
+    }
+  }
+}
+
+output "role_definitions" {
+  description = "Map of created custom role definitions."
+  value = {
+    for key, definition in azurerm_role_definition.custom :
+    key => {
+      id          = definition.id
+      name        = definition.name
+      description = definition.description
+      scope       = definition.scope
+      permissions = [for permission in definition.permissions : {
+        actions          = permission.actions
+        not_actions      = permission.not_actions
+        data_actions     = permission.data_actions
+        not_data_actions = permission.not_data_actions
+      }]
     }
   }
 }
