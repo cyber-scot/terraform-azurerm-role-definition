@@ -17,19 +17,19 @@ resource "azurerm_user_assigned_identity" "uaid" {
 }
 
 module "custom_role_definition" {
-  source = "../../"
+  source = "cyber-scot/role-definition/azurerm"
 
   roles = [
     {
-      create_role = true
-      assign      = true
-      name        = "CustomRole1"
-      description = "This is a custom role 1"
+      create_role      = true
+      assign           = true
+      name             = "CustomRole1"
+      description      = "This is a custom role 1"
       definition_scope = format("/subscriptions/%s", data.azurerm_client_config.current.subscription_id)
       principal_id     = azurerm_user_assigned_identity.uaid.principal_id
       permissions = [
         {
-          actions = ["Microsoft.Authorization/*/read"]
+          actions          = ["Microsoft.Authorization/*/read"]
           not_actions      = []
           data_actions     = []
           not_data_actions = []
@@ -56,7 +56,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_custom_role_definition"></a> [custom\_role\_definition](#module\_custom\_role\_definition) | ../../ | n/a |
+| <a name="module_custom_role_definition"></a> [custom\_role\_definition](#module\_custom\_role\_definition) | cyber-scot/role-definition/azurerm | n/a |
 | <a name="module_rg"></a> [rg](#module\_rg) | cyber-scot/rg/azurerm | n/a |
 
 ## Resources

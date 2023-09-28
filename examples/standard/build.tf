@@ -15,7 +15,7 @@ resource "azurerm_user_assigned_identity" "uaid" {
 }
 
 module "custom_role_definition" {
-  source = "../../"
+  source = "cyber-scot/role-definition/azurerm"
 
   roles = [
     {

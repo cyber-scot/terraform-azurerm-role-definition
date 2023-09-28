@@ -1,16 +1,20 @@
-variable "assignments" {
-  description = "List of role assignments"
-  type = list(object({
-    name                                   = optional(string)
-    scope                                  = string
-    role_definition_id                     = optional(string)
-    role_definition_name                   = optional(string)
-    principal_id                           = string
-    condition                              = optional(string)
-    condition_version                      = optional(string)
-    delegated_managed_identity_resource_id = optional(string)
-    description                            = optional(string)
-    skip_service_principal_aad_check       = optional(bool)
+variable "roles" {
+  description = "The roles to be created and optionally assigned"
+  type        = list(object({
+    create_role       = bool
+    assign            = optional(bool)
+    name              = string
+    description       = string
+    definition_scope  = string
+    principal_id      = string
+    permissions       = list(object({
+      actions          = list(string)
+      not_actions      = optional(list(string))
+      data_actions     = optional(list(string))
+      not_data_actions = optional(list(string))
+    }))
+    assignment_scope  = string
+    built_in_role_id  = optional(string)
   }))
-  default = []
+  default     = []
 }
