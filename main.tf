@@ -19,7 +19,7 @@ resource "azurerm_role_definition" "custom" {
 resource "azurerm_role_assignment" "custom" {
   for_each = { for role in var.roles : role.name => role if lookup(role, "assign", true) }
 
-  scope              = each.value.assignment_scope
+  scope                = each.value.assignment_scope
   role_definition_name = azurerm_role_definition.custom[each.key].name
-  principal_id       = each.value.principal_id
+  principal_id         = each.value.principal_id
 }
